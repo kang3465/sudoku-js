@@ -1,8 +1,21 @@
 <!doctype html>
+<script src="vue.js"></script>
 <script src="core.js"></script>
 <script src="frame.js"></script>
-<script src="vue.js"></script>
 
-<body><script>
-sudoku();
-</script></body>
+<body>
+    <div id="app">
+        {{ message }}
+    </div>
+    <script>
+        sudoku();
+        new Vue({
+            el: '#app',
+            data: function () {
+                return {
+                    message: 'Hello Vue!'
+                }
+            }
+        })
+    </script>
+</body>
