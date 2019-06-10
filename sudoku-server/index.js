@@ -17,4 +17,5 @@ io.on('connection', socket => {
     setTimeout( () => {
         socket.emit('getMsg', '我是初始化3s后的返回消息... ...')
     }, 3001)
+})
 console.log("demo in run")
