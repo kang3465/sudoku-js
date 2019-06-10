@@ -1,4 +1,4 @@
-const Koa = require('C:/Users/pc/AppData/Roaming/npm/node_modules/koa')
+const Koa = require('koa')
 const app = new Koa()
 
 app.use( async(ctx) => {
