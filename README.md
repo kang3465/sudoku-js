@@ -1,11 +1,11 @@
 # sudoku-js
 用于完成课程作业
-##sudoku-cli
+## sudoku-cli
 数独游戏客户端，游戏逻辑的判断
-##sudoku-server
+## sudoku-server
 数独游戏服务器端实现用户的登录注册，记录分数和历史记录
 
-###遇到的问题
+### 遇到的问题
  - 创建好index.js文件之后，使用node运行index.js
   <br/>
 报错：
