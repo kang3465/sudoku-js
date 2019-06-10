@@ -16,7 +16,7 @@ Error: Cannot find module 'is-generator-function'
 <br/>
 解决办法：安装对应的插件即可   
 cnpm i is-generator-function -save
-<br/>
+
  - 虽然之前安装了koa但还是提示找不到koa
 <br/>
 报错：
