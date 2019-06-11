@@ -1,5 +1,6 @@
-var Koa = require('koa');
-var app = new Koa();
+const Koa = require('koa');
+const app = new Koa();
+const path=require('path')
 const Router = require('koa-router');
 const koaStatic = require('koa-static')
 const fs = require('fs');
@@ -15,7 +16,7 @@ const pool = mysql.createPool({
     database: 'js'  // 选中数据库
 })
 
-// 配置静态资源加载中间件
+// 配置静态资源加载中间件，public目录下的资源浏览器中访问"/"下即可
 app.use(koaStatic(
     path.join(__dirname , './public')
 ))

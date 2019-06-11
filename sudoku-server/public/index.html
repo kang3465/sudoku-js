@@ -12,8 +12,25 @@
         #messages li { padding: 5px 10px; }
         #messages li:nth-child(odd) { background: #eee; }
     </style>
+   <script src="./lib/vue.js"></script>
+   <script src="./lib/core.js"></script>
+   <script src="./lib/frame.js"></script>
 </head>
 <body>
+<div id="app">
+    {{ message }}
+</div>
+<script>
+    sudoku();
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                message: 'Hello Vue!'
+            }
+        }
+    })
+</script>
 <ul id="messages"></ul>
 <form action="">
     <input id="m" autocomplete="off" /><button>Send</button>
@@ -22,7 +39,6 @@
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
     $(function () {
-        debugger
         var socket = io();
         $('form').submit(function(){
             socket.emit('chat message', $('#m').val());
