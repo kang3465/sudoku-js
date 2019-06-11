@@ -1,6 +1,7 @@
 var Koa = require('koa');
 var app = new Koa();
 const Router = require('koa-router');
+const koaStatic = require('koa-static')
 const fs = require('fs');
 const YAML = require('yamljs');
 const server = require('http').createServer(app.callback());
@@ -13,6 +14,12 @@ const pool = mysql.createPool({
     password: 'zucc',   // 数据库密码
     database: 'js'  // 选中数据库
 })
+
+// 配置静态资源加载中间件
+app.use(koaStatic(
+    path.join(__dirname , './public')
+))
+
 // 首页路由
 let routerHome = new Router();
 routerHome.get('/', ctx => {
