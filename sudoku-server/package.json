@@ -13,12 +13,15 @@
   "license": "ISC",
   "dependencies": {
     "chai": "^4.2.0",
+    "config": "^3.1.0",
     "ejs": "^2.6.1",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
+    "koa-mount": "^4.0.0",
     "koa-mysql-session": "^0.0.2",
     "koa-router": "^7.4.0",
     "koa-session-minimal": "^3.0.4",
+    "koa-session2": "^2.2.10",
     "koa-static": "^5.0.0",
     "koa-static-cache": "^5.1.2",
     "koa-views": "^6.2.0",
@@ -27,9 +30,14 @@
     "mocha": "^6.1.4",
     "moment": "^2.24.0",
     "mysql": "^2.17.1",
+    "nodebatis": "^2.3.8",
+    "passport-local": "^1.0.0",
     "socket.io": "^2.2.0",
     "y": "^2.2.0",
     "yamljs": "^0.3.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "koa-log4": "^2.3.2",
+    "koa-passport": "^4.1.3"
+  }
 }

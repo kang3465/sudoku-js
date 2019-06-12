@@ -6,7 +6,7 @@
 
  sudoku-js 是独立开发
 
- - 实现Xx 功能
+ - 实现功能
  - 实现yy功能
 
 ## 解决技术要点说明
@@ -72,7 +72,18 @@ app.use(koaStatic(
 ))
 ```
 
+配置跨域
 
+```js
+app.use(async (ctx, next) => {
+     ctx.set('Access-Control-Allow-Headers', 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With')
+     ctx.set('Access-Control-Allow-Origin', 'http://localhost:9000');//这里是前端项目的地址，备用
+     ctx.set('Access-Control-Allow-Methods', 'PUT,DELETE,POST,GET');
+     ctx.set('Access-Control-Allow-Credentials', true);
+     ctx.set('Access-Control-Max-Age', 3600 * 24);
+     await next();
+   });
+```
 
 
 ### sudoku-cli

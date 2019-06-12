@@ -1,14 +1,20 @@
 const Koa = require('koa');
+const bodyParser = require('koa-bodyparser')
+const mount = require('koa-mount')
 const app = new Koa();
 const path=require('path')
 const Router = require('koa-router');
 const koaStatic = require('koa-static')
+
 const fs = require('fs');
 const YAML = require('yamljs');
 const server = require('http').createServer(app.callback());
 const io = require('socket.io')(server);
 const mysql = require('mysql')
 const db = require('./mysql.js');
+const session = require("koa-session2")
+const passport = require('./passport.js');
+const xauth = require('./xauth.js')
 const pool = mysql.createPool({
     host: '101.200.56.109',   // 数据库地址
     user: 'root',    // 数据库用户
@@ -35,6 +41,13 @@ app.use(koaStatic(
 // 首页路由
 let routerHome = new Router();
 routerHome.get('/', ctx => {
+    if (ctx.isAuthenticated()) {
+        console.log(ctx.state.user)
+        ctx.body={}
+        ctx.login(user)
+    }else {
+        ctx.redirect('/login')
+    }
     ctx.response.type = 'html';
     ctx.response.body = fs.createReadStream('./index.html');
 });
@@ -57,9 +70,11 @@ routerRest.get('/data1', async (ctx) => {
 }).post('/data1', async (ctx) => {
     ctx.body = YAML.parse(fs.readFileSync('./restful.data1.yaml').toString());
 }).get('/login', async (ctx) => {
+
     let result = {};
     let username = ctx.request.query.username;
     let pwd = ctx.request.query.pwd;
+    ctx.login({"username":username,"password": pwd});
     let mysqlDate = null;
 
     let sql = mysql.format("select * from user where username = ?", [username]);
@@ -79,8 +94,12 @@ routerRest.get('/data1', async (ctx) => {
             ctx.body = JSON.stringify(result);
         }
     )
-
-
+}).get('/logintest', async (ctx) => {
+    let username = ctx.query.username;
+    let password = ctx.query.password;
+    ctx.login({"username":username,"password": password}).then(results=>{
+        ctx.body = results;
+    })
 })
 // 总路由
 let router = new Router();
@@ -89,7 +108,12 @@ router.use('/jsonp', routerJsonp.routes(), routerJsonp.allowedMethods());
 router.use('/restful', routerRest.routes(), routerRest.allowedMethods());
 
 app.use(router.routes()).use(router.allowedMethods());
-
+app.proxy = true
+app.use(session({key: "SESSIONID"}))
+app.use(bodyParser())
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(mount('/',xauth.routes()))
 // socket连接
 io.on('connection', (socket) => {
     socket.on('chat message', (msg) => {
@@ -105,21 +129,3 @@ io.on('connection', (socket) => {
 server.listen(3000, () => {
     console.log('listening on *:3000');
 });
-
-function getMysql(sql) {
-    pool.getConnection(function (err, connection) {
-        connection.query(sql, (error, results, fields) => {
-            // 如果有错误就抛出
-            if (error) throw error;
-
-            // connected!
-            console.log(results)
-            // console.log(fields)
-            // 结束会话
-            connection.release();
-            return results;
-        })
-    });
-    return null;
-
-}

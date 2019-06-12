@@ -40,6 +40,7 @@ db.dataCenter = function(sql, fn) {
     });
 };
 db.queryplug = function( sql, values ) {
+    sql = mysql.format(sql,values);
     return new Promise(( resolve, reject ) => {
         pool.getConnection(function(err, connection) {
             if (err) {
