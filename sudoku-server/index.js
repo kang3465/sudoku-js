@@ -9,6 +9,9 @@ const koaBody = require('koa-body')								            // 入参JSON解析中间
 const staticServer = require('koa-static')									// 静态资源服务中间件
 const mount = require('koa-mount')											// 挂载点中间件
 // 应用xkoa中间件
+const xcontroller = require('koa-xcontroller')								// koa-xcontroller，自动路由中间件
+const xmodel = require('koa-xmodel')										// koa-xmodel，自动实体中间件
+const xbatis = require('koa-xbatis')										// koa-xbatis，自动SQL中间件
 const xerror = require('koa-xerror')                                        // koa-xerror，自动异常捕获中间件
 const xauth = require('koa-xauth')                                          // koa-xauth，自动身份认证中间件
 const xlog = require('koa-xlog')                                            // koa-xlog，自动日志中间件
