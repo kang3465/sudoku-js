@@ -36,6 +36,11 @@ app.use(xauth(config.auth, (v) => v))   // TOKEN身份认证中间件，，参�
 // 1,加载koa-xcontroller中间件
 xcontroller.init(app, config.server)            // 应用实例，可选配置：访问根路径，控制器目录路径
 
+// 2,加载koa-xmodel中间件
+xmodel.init(app, sequelize, config.server)      // 初始化mysql连接
+
+// 3,加载koa-xbatis中间件
+xbatis.init(app, nodebatis, config.server)      // 初始化mysql连接
 
 // 启动应用服务
 app.listen(port)

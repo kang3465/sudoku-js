@@ -17,13 +17,10 @@
         "errStatus": 500
     },
     "auth": {
-        "secret": "xserver",
+        "secret": "sodoku-server",
         "pass": ["/xserver/auth/login"],
         "role":{
-            "admin":[".*"],
-            "financialAdmin":["/financial/*"],
-            "financialManager":["/financial/test1","/financial/test2"],
-            "financialStaff":["GET:/financial/test1","POST:/financial/test2"]
+            "admin":[".*"]
         },
         "cors": true,
         "errMsg": "未认证",
@@ -37,13 +34,9 @@
         "port": 3636,
         "staticRoot": "/xserver/static/",
         "controllerRoot": "/xserver",
-        "controllerDir": "/src/controller/",
-        "middlewareDir": "/src/middleware/",
         "xmodelRoot": "/xmodel",
         "modelDir": "/src/model/",
         "xbatisRoot": "/xbatis",
         "mapperDir": "/src/yaml/",
-        "xnosqlRoot": "/xnosql",
-        "mongodbUrl": "mongodb://localhost:27017/test"
     }
 }
