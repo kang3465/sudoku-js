@@ -18,9 +18,4 @@ const nodebatis = new NodeBatis(`${process.cwd()}${config.server.mapperDir || '/
     }
 })
 
-// nodebatis.define(/^test.findAll$/, {
-//     name: /^\d+/,
-//     age: Types.INT
-// })
-
 module.exports = nodebatis

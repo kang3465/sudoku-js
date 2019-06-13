@@ -1,5 +1,6 @@
 const passport = require('koa-passport')
-const User = require('./models/user.js')
+const User = require('./src/models/UserModel')
+// const User = require('./src/models/user.js')
 const log4js = require('koa-log4')
 const logger = log4js.getLogger('passport')
 const LocalStrategy = require('passport-local').Strategy
