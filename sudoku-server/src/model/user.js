@@ -1,3 +1,4 @@
+/*
 let mysql = require("../../mysql.js");
 let user = {};
 
@@ -13,3 +14,4 @@ user.findOne = function (u, fn) {
 }
 module.exports = user
 
+*/

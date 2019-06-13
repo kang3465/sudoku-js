@@ -1,3 +1,4 @@
+/*
 // 系统配置参数,用于读取配置文件中的参数
 const config = require('config')											// 配置文件
 const port = config.server.port												// 系统端口
@@ -148,3 +149,4 @@ io.on('connection', (socket) => {
 server.listen(3000, () => {
     console.log('listening on *:3000');
 });
+*/

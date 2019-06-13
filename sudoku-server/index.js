@@ -1,5 +1,5 @@
 // 系统配置参数,用于读取配置文件中的参数
-const config = require('config')											// 配置文件
+const config = require('config')										// 配置文件
 const port = config.server.port												// 系统端口
 const staticRoot = config.server.staticRoot									// 静态根目录
 // 应用服务相关
