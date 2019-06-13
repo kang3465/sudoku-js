@@ -1,10 +1,10 @@
 {
     "db": {
-        "host": "localhost",
+        "host": "101.200.56.109",
         "port": 3306,
-        "dbname": "test",
+        "dbname": "js",
         "username": "root",
-        "password": "root"
+        "password": "zucc"
     },
     "log": {
         "level": "info",

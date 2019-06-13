@@ -42,5 +42,7 @@ xmodel.init(app, sequelize, config.server)      // 初始化mysql连接
 // 3,加载koa-xbatis中间件
 xbatis.init(app, nodebatis, config.server)      // 初始化mysql连接
 
+global.nodebatis = nodebatis;                   //方便其他模块调用
 // 启动应用服务
 app.listen(port)
+log.info(`服务已开启，地址：http://locakhost:${port}`)

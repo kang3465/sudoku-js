@@ -30,7 +30,7 @@
     "lodash": "latest",
     "koa-router": "latest",
     "mysql2": "^1.6.4",
-    "sequelize": "latest"
+    "sequelize": "^4.42.0"
   },
   "devDependencies": {
     "koa-xbatis": "^1.1.0"
