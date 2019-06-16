@@ -36,7 +36,7 @@ function init(){
 			gridCell.css("left",getPosLeft(i,j));
 		}
 	}
-	
+
 	//更新小方格的内容
 	updateBoardView();
 }
@@ -65,7 +65,7 @@ function updateBoardView(){
                 gridNumber.css("color", getGridNumberColor(board[i][j]));
                 gridNumber.text(board[i][j]);
             }
-			 
+
 		}
 	}
 }
@@ -90,7 +90,6 @@ function generateOneNumber(){
 	board[generateX][generateY]=generateNumber;
 	//刷新数字（动态显示)
 	showNumberWithAnimation(generateX,generateY,generateNumber);
-	
-}
 
+}
 
