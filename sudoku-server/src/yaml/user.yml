@@ -9,10 +9,10 @@ findByPassword:
     - select {{ user.attrs }} from users where password = :password
     -
 findByUsername:
-    - select {{ user.attrs }} from users where username = :username
+    - select id, {{ user.attrs }} from users where username = :username
 
 findById:
-    - select {{ user.attrs }} from users where
+    - select  {{ user.attrs }} from users where
     - if:
         user: :username > 10
         sql: and username = :username

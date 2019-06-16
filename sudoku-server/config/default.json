@@ -18,7 +18,7 @@
     },
     "auth": {
         "secret": "sodoku-server",
-        "pass": ["/xserver/user/login"],
+        "pass": ["/xserver/user/login","/xserver/static/"],
         "role":{
             "admin":[".*"]
         },
@@ -33,6 +33,7 @@
     "server": {
         "port": 3636,
         "staticRoot": "/xserver/static/",
+        "staticDir": "/public/",
         "controllerRoot": "/xserver",
         "controllerDir": "/src/controller/",
         "middlewareDir": "/src/middleware/",
