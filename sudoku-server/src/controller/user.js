@@ -116,7 +116,7 @@ router.get('/scote', async function (ctx, next) {
     }
 })
 /**
- * 获取排行榜
+ * 上传成绩
  */
 router.post('/scoteadd', async function (ctx, next) {
     try {
