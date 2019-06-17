@@ -16,8 +16,21 @@ const _ = require('lodash');
 router.post('/login', async function (ctx, next) {
     try {
         // 获取xbatis设置在全局对象中的数据库连接
-        const nodebatis = global.nodebatis;
+      /*  const nodebatis = global.nodebatis;
+        const redisClient = global.redisClient;
         //token已经存在验证token正确性，则不需要登录
+        await redisClient.get(ctx.request.body.username,(err,v)=>{
+            if (v!=null) {
+                let user = jwt.verify(v, config.auth.secret);
+                ctx.body = {obj:{token: v, user: user}}
+            }else {
+                redisClient.set(ctx.request.body.username,jwt.sign({
+                    ...user,
+                    iat: Date.now(),
+                    exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24)
+                }, config.auth.secret))
+            }
+        });*/
         if (ctx.header.token) {
             const user = await jwt.verify(ctx.header.token, config.auth.secret)
             log.info('已登录:' + JSON.stringify(user))
@@ -30,7 +43,7 @@ router.post('/login', async function (ctx, next) {
                 if (res[0].password === ctx.request.body.password) {
                     let user = res[0]
                     user.role = 'admin';
-                    const token = jwt.sign({
+                    let token = jwt.sign({
                         ...user,
                         iat: Date.now(),
                         exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24)
@@ -38,6 +51,7 @@ router.post('/login', async function (ctx, next) {
                     // ctx.tokenSign = token
                     user.password = "已加密";
                     user.name="已加密"
+                    redisClient.set(user.username,token);
                     ctx.body = {obj:{token: token, user: user}}
                 } else {
                     ctx.body = "密码错误"
@@ -50,7 +64,7 @@ router.post('/login', async function (ctx, next) {
         log.error(error)
         ctx.body = '登录服务故障'
     }
-})
+});
 /**
  * 认证登录
  */
@@ -68,29 +82,16 @@ router.post('/reg', async function (ctx, next) {
             //调用nodebatis验证用户信息
             await nodebatis.execute("user.add", {"username": ctx.request.body.username,"password":ctx.request.body.password}).then((res) => {
                 console.log(res)
-               /* if (res[0].password === ctx.request.body.password) {
-                    let user = res[0]
-                    user.role = 'admin';
-                    const token = jwt.sign({
-                        ...user,
-                        iat: Date.now(),
-                        exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24)
-                    }, config.auth.secret)
-                    // ctx.tokenSign = token
-                    user.password = "已加密";
-                    ctx.body = {token: token, user: user}
-                } else {
-                    ctx.body = "密码错误"
-                }*/
+
             }).catch(e => {
                 ctx.body = {e}
             })
         }
     } catch (error) {
-        log.error(error)
+        log.error(error);
         ctx.body = '登录服务故障'
     }
-})
+});
 /**
  * 获取排行榜
  */
@@ -98,10 +99,10 @@ router.get('/scote', async function (ctx, next) {
     try {
         // 获取xbatis设置在全局对象中的数据库连接
         const nodebatis = global.nodebatis;
-        let userId = ctx.query.userId
+        let userId = ctx.query.userId;
 
         await nodebatis.execute("scote.findAll", {"order": "order by scote"}).then((res) => {
-            console.log(res)
+            console.log(res);
             if (res.length) {
                 ctx.body = res
             } else {
@@ -111,7 +112,7 @@ router.get('/scote', async function (ctx, next) {
             ctx.body = {e}
         })
     } catch (error) {
-        log.error(error)
+        log.error(error);
         ctx.body = '登录服务故障'
     }
 })
@@ -122,20 +123,21 @@ router.post('/scoteadd', async function (ctx, next) {
     try {
         // 获取xbatis设置在全局对象中的数据库连接
         const nodebatis = global.nodebatis;
-        let scote =ctx.request.body.scote
+        let scote =ctx.request.body.scote;
+        let holeNumber =ctx.request.body.holeNumber;
         let user = await jwt.verify(ctx.header.token, config.auth.secret);
         let userId = user.id;
 
-        await nodebatis.execute("scote.add", {"userId": userId,"scote":scote}).then((res) => {
-            console.log(res)
+        await nodebatis.execute("scote.add", {"userId": userId,"scote":scote,"holeNumber":holeNumber}).then((res) => {
+            console.log(res);
                 ctx.body = res
         }).catch(e => {
             ctx.body = {e}
         })
     } catch (error) {
-        log.error(error)
+        log.error(error);
         ctx.body = '登录服务故障'
     }
 })
 
-module.exports = router
+module.exports = router;

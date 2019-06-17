@@ -40,6 +40,8 @@
         "xmodelRoot": "/xmodel",
         "modelDir": "/src/model/",
         "xbatisRoot": "/xbatis",
-        "mapperDir": "/src/yaml/"
+        "mapperDir": "/src/yaml/",
+        "xnosqlRoot": "/xnosql",
+        "mongodbUrl": "mongodb://localhost:27017/test"
     }
 }

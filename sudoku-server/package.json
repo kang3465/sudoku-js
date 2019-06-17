@@ -20,17 +20,19 @@
     "koa": "latest",
     "koa-body": "latest",
     "koa-mount": "latest",
+    "koa-router": "latest",
     "koa-static": "latest",
     "koa-xauth": "^1.2.0",
     "koa-xcontroller": "^1.2.0",
     "koa-xerror": "^1.1.0",
     "koa-xlog": "^1.1.0",
     "koa-xmodel": "^1.1.0",
-    "tracer": "latest",
+    "koa-xnosql": "^1.8.0",
     "lodash": "latest",
-    "koa-router": "latest",
     "mysql2": "^1.6.4",
-    "sequelize": "^4.42.0"
+    "redis": "^2.8.0",
+    "sequelize": "^4.42.0",
+    "tracer": "latest"
   },
   "devDependencies": {
     "koa-xbatis": "^1.1.0"

@@ -12,8 +12,8 @@ findByUserId:
     - ::order
 
 add:
-    - insert into scotes(userId, scote)
-    - values(:userId, :scote)
+    - insert into scotes(userId, scote,holeNumber)
+    - values(:userId, :scote :holeNumber)
 
 remove:
     - delete from scotes where id = :id
