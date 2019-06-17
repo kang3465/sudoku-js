@@ -1,9 +1,9 @@
 namespace: 'scote'
 
-attrs: userId, scote
+attrs: userId, scote,holeNumber
 
 findAll:
-    - select username,scote from scotes s , users u where u.id = s.userId
+    - select username,scote ,holeNumber from scotes s , users u where u.id = s.userId
     - ::order
 
 findByUserId:

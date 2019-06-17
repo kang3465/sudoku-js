@@ -10,6 +10,7 @@ const axios = require('axios');
 // const crypto = require('crypto')
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
+const respBean = require('../model/respBean.js');
 /**
  * 认证登录
  */
@@ -104,7 +105,7 @@ router.get('/scote', async function (ctx, next) {
         await nodebatis.execute("scote.findAll", {"order": "order by scote"}).then((res) => {
             console.log(res);
             if (res.length) {
-                ctx.body = res
+                ctx.body = new respBean(200,"成功",res,ctx.header.token);
             } else {
                 ctx.body = "无数据"
             }

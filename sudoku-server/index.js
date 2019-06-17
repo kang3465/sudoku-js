@@ -13,13 +13,13 @@ const xcontroller = require('koa-xcontroller');							    // koa-xcontroller，�
 const xmodel = require('koa-xmodel');								        // koa-xmodel，自动实体中间件
 const xbatis = require('koa-xbatis');										// koa-xbatis，自动SQL中间件
 const xnosql = require('koa-xnosql');										// koa-xnosql，自动NOSQL中间件
-const redisClient = require('./noderedis');									// koa-xnosql，自动NOSQL中间件
+const redisClient = require(__dirname + '/src/noderedis/index.js');									// koa-xnosql，自动NOSQL中间件
 const xerror = require('koa-xerror');                                       // koa-xerror，自动异常捕获中间件
 const xauth = require('koa-xauth');                                         // koa-xauth，自动身份认证中间件
 const xlog = require('koa-xlog');                                           // koa-xlog，自动日志中间件
 
 //引入返回模板
-const respBean = require("./model/respBean.js");
+const respBean = require(__dirname + '/src/model/respBean.js');
 // 持久层相关
 const nodebatis = require(__dirname + '/src/nodebatis/nodebatis.js');       // SQL应用框架
 const sequelize = require(__dirname + '/src/sequelize/sequelize.js');
@@ -62,7 +62,7 @@ xmodel.init(app, sequelize, config.server)      // 初始化mysql连接
 xbatis.init(app, nodebatis, config.server)      // 初始化mysql连接
 
 // 4,加载koa-xnosql中间件
-xnosql.init(app, config.server)                 // 初始化mongodb连接
+// xnosql.init(app, config.server)                 // 初始化mongodb连接
 global.nodebatis = nodebatis;                   //方便其他模块调用
 global.redisClient=redisClient;
 // 启动应用服务
