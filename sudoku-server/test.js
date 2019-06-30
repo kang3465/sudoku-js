@@ -12,6 +12,10 @@ console.log(this.test)
 
 const redis = require("redis");
 const client = redis.createClient("6379","101.200.56.109");
+// client.auth_pass()
+client.auth("kang.redis",(a,b)=>{
+console.log([a,b])
+})
 
 client.on("error",error=>{
     console.log(error);
@@ -21,12 +25,13 @@ client.auth("123456",res=>{
     console.log(res);
 })
 */
-client.set('hello','This is a value');
+/*client.set('hello','This is a value');
 client.get('hello',function (err,v) {
     console.log("redis get hello err,v",err,v);
 })
 
-client.set('hello',JSON.stringify({name:"jacky",age:22}));
-client.get('hello',function (err,v) {
-    console.log("redis get hello err,v",err,JSON.parse(v).name);
+client.set('hello',JSON.stringify({name:"jacky",age:22}));*/
+client.get('kang3465@icloud.com',function (err,v) {
+    // console.log("redis get hello err,v",err,JSON.parse(v).name);
+    console.log("redis get hello err,v",v);
 })

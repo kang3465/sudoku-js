@@ -1,7 +1,9 @@
 const jwt = require('jsonwebtoken')
 const log = require('tracer').colorConsole()
-const redisClient = require(__dirname + '/src/noderedis/index.js');
-module.exports = function (authConfig = {}, tokenRule, errorProcess, anyProcess) {
+const redisClient = require(__dirname + '../../noderedis/index.js');
+const respBean = require(__dirname +'../../model/respBean.js');
+const config = require('config');									        // 配置文件
+module.exports = function (authConfig = {}, tokenRule, errorProcess) {
     return function xauth(ctx, next) {
         authConfig.tokenname = authConfig.tokenname || 'token'
         authConfig.pass = authConfig.pass || []
@@ -26,7 +28,6 @@ module.exports = function (authConfig = {}, tokenRule, errorProcess, anyProcess)
             token = tokenRule(token)
         }
 
-        let token = ctx.header.token;
         if (token) {
             let user = jwt.verify(token, config.auth.secret);
             redisClient.get(user.username, (err, v) => {
@@ -66,6 +67,7 @@ module.exports = function (authConfig = {}, tokenRule, errorProcess, anyProcess)
                         const re = new RegExp(item)
                         if (re.test(ctx.url)) {
                             ctx.tokenVerify = tokenVerify
+
                             return next()
                         }
                     }

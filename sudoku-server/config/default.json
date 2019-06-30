@@ -1,47 +1,62 @@
 {
-    "db": {
-        "host": "101.200.56.109",
-        "port": 3306,
-        "dbname": "js",
-        "username": "root",
-        "password": "zucc"
-    },
-    "log": {
-        "level": "info",
-        "header": {
-            "loglist": ["token"]
-        }
-    },
-    "error":{
-        "debug": true,
-        "errStatus": 500
-    },
-    "auth": {
-        "secret": "sodoku-server",
-        "pass": ["/xserver/user/login","/xserver/static/"],
-        "role":{
-            "admin":[".*"]
-        },
-        "cors": true,
-        "errMsg": "未认证",
-        "errStatus": 401
-    },
-    "wxapp": {
-        "appId": "",
-        "appSecret": ""
-    },
-    "server": {
-        "port": 3636,
-        "staticRoot": "/xserver/static/",
-        "staticDir": "/public/",
-        "controllerRoot": "/xserver",
-        "controllerDir": "/src/controller/",
-        "middlewareDir": "/src/middleware/",
-        "xmodelRoot": "/xmodel",
-        "modelDir": "/src/model/",
-        "xbatisRoot": "/xbatis",
-        "mapperDir": "/src/yaml/",
-        "xnosqlRoot": "/xnosql",
-        "mongodbUrl": "mongodb://localhost:27017/test"
+  "ws": {
+  },
+  "https": {
+  },
+  "db": {
+    "host": "101.200.56.109",
+    "port": 3306,
+    "dbname": "js",
+    "username": "root",
+    "password": "zucc"
+  },
+  "log": {
+    "level": "info",
+    "header": {
+      "loglist": [
+        "token"
+      ]
     }
+  },
+  "error": {
+    "debug": true,
+    "errStatus": 500
+  },
+  "auth": {
+    "secret": "sodoku-server",
+    "pass": [
+      "/xserver/user/login",
+      "/xserver/user/reg",
+      "/xserver/static/",
+      "/xserver/img/upload"
+    ],
+    "role": {
+      "admin": [
+        ".*"
+      ],"normal": [
+        "/xserver/user/*"
+      ]
+    },
+    "cors": true,
+    "errMsg": "未认证",
+    "errStatus": 401
+  },
+  "wxapp": {
+    "appId": "",
+    "appSecret": ""
+  },
+  "server": {
+    "port": 3636,
+    "staticRoot": "/xserver/static/",
+    "staticDir": "/public/",
+    "controllerRoot": "/xserver",
+    "controllerDir": "/src/controller/",
+    "middlewareDir": "/src/middleware/",
+    "xmodelRoot": "/xmodel",
+    "modelDir": "/src/model/",
+    "xbatisRoot": "/xbatis",
+    "mapperDir": "/src/yaml/",
+    "xnosqlRoot": "/xnosql",
+    "mongodbUrl": "mongodb://localhost:27017/test"
+  }
 }

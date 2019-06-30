@@ -2,15 +2,21 @@ import axios from 'axios'
 import {Message} from 'element-ui'
 import store from '../store/index.js'
 axios.interceptors.request.use(config => {
+  config.headers.token=store.state.token;
   return config;
 }, err => {
   Message.error({message: '请求超时!'});
   // return Promise.resolve(err);
-})
+});
+/*axios.interceptors.request.use(data=>{
+  console.log(data);
+},data=>{
+  console.log(data);
+})*/
 axios.interceptors.response.use(data => { //服务器同意之后，开始判断逻辑是否通过
   if (data.status && data.status == 200 && data.data.status == 410) {//用户已在其他端登陆，现有的token已失效,清除现有token
     Message.error({message: data.data.msg});
-    store.state.token =null;
+    // store.commit("logout");
     return;
   }
   if (data.status && data.status == 200 && data.data.status == 500) {
@@ -52,7 +58,7 @@ export const postRequest = (url, params) => {
     }],
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      'token':store.state.token,
+      // 'token':store.state.token,
     }
   });
 }
@@ -63,7 +69,7 @@ export const uploadFileRequest = (url, params) => {
     data: params,
     headers: {
       'Content-Type': 'multipart/form-data',
-      'token':store.state.token,
+      // 'token':store.state.token,
     }
   });
 }
@@ -81,7 +87,7 @@ export const putRequest = (url, params) => {
     }],
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      'token':store.state.token,
+      // 'token':store.state.token,
     }
   });
 }
@@ -90,7 +96,7 @@ export const deleteRequest = (url) => {
     method: 'delete',
     url: `${base}${url}`,
     headers: {
-      'token':store.state.token,
+      // 'token':store.state.token,
     }
   });
 }
@@ -99,7 +105,7 @@ export const getRequest = (url) => {
     method: 'get',
     url: `${base}${url}`,
     headers: {
-      'token':store.state.token,
+      // 'token':store.state.token,
     }
   });
 }

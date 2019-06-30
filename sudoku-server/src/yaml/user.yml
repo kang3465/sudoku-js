@@ -1,6 +1,6 @@
 namespace: 'user'
 
-attrs: username, password
+attrs: username, password,role,userface
 
 findAll:
     - select * from users
@@ -21,11 +21,15 @@ findById:
     - ::order
 
 add:
-    - insert into users(username, password)
-    - values(:username, :password)
+    - insert into users(username, password,role)
+    - values(:username, :password , :role )
 
-edit:
+editPassword:
     - update users set password = :password where username = :username
+editName:
+    - update users set name = :name where username = :username
+updataFace:
+    - update users set userface = :userface where username = :username
 
 remove:
     - delete from users where username = :username

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import '../lib/sockjs'
+import '../../static/sockjs'
 import '../lib/stomp'
 
 Vue.use(Vuex)
@@ -11,14 +11,14 @@ export default new Vuex.Store({
    * */
   state: {
     user: {
-      id: window.localStorage.getItem('user' || '[]') == null ? '-1' : JSON.parse(window.localStorage.getItem('user' || '[]')).id,
-      name: window.localStorage.getItem('user' || '[]') == null ? '未登录' : JSON.parse(window.localStorage.getItem('user' || '[]')).name,
-      userface: window.localStorage.getItem('user' || '[]') == null ? 'http://image.baidu.com/search/down?tn=download&ipn=dwnl&word=download&ie=utf8&fr=result&url=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F01%2F43%2F89%2F59399eb9148bb_610.jpg&thumburl=http%3A%2F%2Fimg3.imgtn.bdimg.com%2Fit%2Fu%3D2806881758%2C790704577%26fm%3D26%26gp%3D0.jpg' : JSON.parse(window.localStorage.getItem('user' || '[]')).userface,
-      username: window.localStorage.getItem('user' || '[]') == null ? '' : JSON.parse(window.localStorage.getItem('user' || '[]')).username,
-      roles: window.localStorage.getItem('user' || '[]') == null ? '' : JSON.parse(window.localStorage.getItem('user' || '[]')).roles,
-      type: window.localStorage.getItem('user' || '[]') == null ? '' : JSON.parse(window.localStorage.getItem('user' || '[]')).type
+      id: window.localStorage.getItem('user' || '[]') == null ? '-1' : window.localStorage.getItem('user' || '[]').id,
+      name: window.localStorage.getItem('user' || '[]') == null ? '未登录' : window.localStorage.getItem('user' || '[]').name,
+      userface: window.localStorage.getItem('user' || '[]') == null ? 'http://image.baidu.com/search/down?tn=download&ipn=dwnl&word=download&ie=utf8&fr=result&url=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F01%2F43%2F89%2F59399eb9148bb_610.jpg&thumburl=http%3A%2F%2Fimg3.imgtn.bdimg.com%2Fit%2Fu%3D2806881758%2C790704577%26fm%3D26%26gp%3D0.jpg' : window.localStorage.getItem('user' || '[]').userface,
+      username: window.localStorage.getItem('user' || '[]') == null ? '' : window.localStorage.getItem('user' || '[]').username,
+      roles: window.localStorage.getItem('user' || '[]') == null ? '' : window.localStorage.getItem('user' || '[]').roles,
+      type: window.localStorage.getItem('user' || '[]') == null ? '' : window.localStorage.getItem('user' || '[]').type
     },
-    token:"",
+    token:null/*window.localStorage.getItem('token' || '[]') == null ? '' : JSON.parse(window.localStorage.getItem('token' || '[]'))*/,
     routes: [],
     msgList: [],
     isDotMap: new Map(),
@@ -42,6 +42,8 @@ export default new Vuex.Store({
     },
     logout(state){
       window.localStorage.removeItem('user');
+      state.token = null;
+      window.localStorage.removeItem('token');
       state.routes = [];
     },
     toggleNFDot(state, newValue){
@@ -69,7 +71,7 @@ export default new Vuex.Store({
       context.state.stomp = Stomp.over(new SockJS("/ws/endpointChat"));
       context.state.stomp.connect({}, frame=> {
         context.state.stomp.subscribe("/user/queue/chat", message=> {
-          var msg = JSON.parse(message.body);
+          let msg = JSON.parse(message.body);
           var oldMsg = window.localStorage.getItem(context.state.user.username + "#" + msg.from);
           if (oldMsg == null) {
             oldMsg = [];

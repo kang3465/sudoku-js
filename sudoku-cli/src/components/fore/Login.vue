@@ -28,8 +28,8 @@
         },
         checked: true,
         loginForm: {
-          username: 'admin',
-          password: '123'
+          username: 'kang3465@icloud.com',
+          password: 'admin'
         },
         loading: false
       }

@@ -13,8 +13,10 @@
                  active-text-color="#ffd04b">
           <template v-for=""></template>
           <el-menu-item index="/home">首页</el-menu-item>
-          <el-menu-item index="mytest">我的考试</el-menu-item>
           <el-menu-item index="sudoku">我的数独</el-menu-item>
+          <el-menu-item index="rankingList">排行榜</el-menu-item>
+          <el-menu-item v-if="user.role=='admin'"  index="userList">当前登录用户</el-menu-item>
+          <el-menu-item index="PersonalCenter">个人中心</el-menu-item>
         </el-menu>
         <div style="display: flex;align-items: center;margin-right: 7px">
           <el-badge style="margin-right: 30px" :is-dot="this.$store.state.nfDot">
@@ -108,7 +110,7 @@
             cancelButtonText: '取消',
             type: 'warning'
           }).then(() => {
-            _this.getRequest("/logout");
+            _this.postRequest("/xserver/user/adminlogout",{"username":_this.user.username});
             _this.$store.commit('logout');
             _this.$router.replace({path: '/'});
           }).catch(() => {

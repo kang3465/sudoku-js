@@ -1,6 +1,8 @@
 const redis = require("redis");
 const redisClient = redis.createClient("6379","101.200.56.109");
-
+redisClient.auth("kang.redis",(a,b)=>{
+    console.log("redia连接成功"+[a,b])
+})
 redisClient.on("error",error=>{
     console.log(error);
 })

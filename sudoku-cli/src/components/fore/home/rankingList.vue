@@ -3,8 +3,13 @@
     <template slot="name" slot-scope="text">
       <a href="javascript:;">{{text}}</a>
     </template>
+    <span slot="customTitle"><a-icon type="smile-o" /> Name</span>
+
+    <span v-if="user.role=='admin'" slot="action" slot-scope="text, record">
+      <a @click="de(record.id)">删除成绩</a>
+    </span>
     <template slot="title" slot-scope="currentPageData">
-      Header
+      排行榜
     </template>
     <template slot="footer" slot-scope="currentPageData">
       Footer
@@ -23,6 +28,10 @@
   }, {
     title: '游戏难度',
     dataIndex: 'holeNumber',
+  }, {
+    title: 'Action',
+    key: 'action',
+    scopedSlots: { customRender: 'action' },
   }];
 
   const data = [{
@@ -54,11 +63,26 @@
       }
     }, mounted() {
       this.getRankingList();
+    },computed: {
+      user() {
+        // console.log(this.$store.state.user)
+        return this.$store.state.user;
+      },
+      routes() {
+        return this.$store.state.routesstore
+      }
     }, methods: {
       getRankingList: function () {
         this.getRequest("/xserver/user/scote").then(res => {
           this.rankingList = res.data.obj;
           console.log(this.rankingList);
+        })
+      },de:function (key) {
+        console.log(key);
+        this.postRequest("/xserver/user/scotedelete",{"id":key}).then(res => {
+          this.rankingList = res.data.obj;
+          console.log(this.rankingList);
+          this.getRankingList();
         })
       }
     }
