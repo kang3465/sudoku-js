@@ -31,7 +31,7 @@
     "koa-xnosql": "^1.8.0",
     "lodash": "latest",
     "mysql2": "^1.6.4",
-    "redis": "^2.8.0",
+    "redis": "^3.1.1",
     "sequelize": "^4.42.0",
     "tracer": "latest"
   },
